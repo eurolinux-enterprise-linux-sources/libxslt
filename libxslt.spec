@@ -1,7 +1,7 @@
 Summary: Library providing the Gnome XSLT engine
 Name: libxslt
 Version: 1.1.26
-Release: 2%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}.1
 License: MIT
 Group: Development/Libraries
 Source: ftp://xmlsoft.org/XSLT/libxslt-%{version}.tar.gz
@@ -15,6 +15,22 @@ BuildRequires: libgcrypt-devel
 Prefix: %{_prefix}
 Docdir: %{_docdir}
 Patch0: multilib.patch
+
+Patch1: libxslt-Fix-direct-pattern-matching-bug.patch
+Patch2: libxslt-Fix-popping-of-vars-in-xsltCompilerNodePop.patch
+Patch3: libxslt-Fix-bug-602515.patch
+Patch4: libxslt-Fix-generate-id-to-not-expose-object-addresses.patch
+Patch5: libxslt-Fix-some-case-of-pattern-parsing-errors.patch
+Patch6: libxslt-Fix-a-bug-in-selecting-XSLT-elements.patch
+Patch7: libxslt-Fix-portability-to-upcoming-libxml2-2.9.0.patch
+Patch8: libxslt-Fix-default-template-processing-on-namespace-nodes.patch
+Patch9: libxslt-Cleanup-of-the-pattern-compilation-code.patch
+Patch10: libxslt-Hardening-of-code-checking-node-types-in-various-entry-point.patch
+Patch11: libxslt-Hardening-of-code-checking-node-types-in-EXSLT.patch
+Patch12: libxslt-Fix-system-property-with-unknown-namespace.patch
+Patch13: libxslt-xsltproc-should-return-an-error-code-if-xinclude-fails.patch
+Patch14: libxslt-Fix-a-dictionary-string-usage.patch
+Patch15: libxslt-Avoid-a-heap-use-after-free-error.patch
 
 %description
 This C library allows to transform XML files into other XML files
@@ -56,6 +72,22 @@ with XPath functions written in Python.
 %prep
 %setup -q
 %patch0 -p1
+
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 %build
 %configure
@@ -130,6 +162,24 @@ rm -fr %{buildroot}
 %doc python/tests/*.xsl
 
 %changelog
+* Mon Sep  3 2012 Daniel Veillard <veillard@redhat.com> 1.1.26-2.el6_3.1
+- fixes CVE-2011-1202 CVE-2011-3970 CVE-2012-2825 CVE-2012-2871 CVE-2012-2870
+- Fix direct pattern matching bug
+- Fix popping of vars in xsltCompilerNodePop
+- Fix bug 602515
+- Fix generate-id() to not expose object addresses (CVE-2011-1202)
+- Fix some case of pattern parsing errors (CVE-2011-3970)
+- Fix a bug in selecting XSLT elements (CVE-2012-2825)
+- Fix portability to upcoming libxml2-2.9.0
+- Fix default template processing on namespace nodes (CVE-2012-2871)
+- Cleanup of the pattern compilation code (CVE-2012-2870)
+- Hardening of code checking node types in various entry point (CVE-2012-2870)
+- Hardening of code checking node types in EXSLT (CVE-2012-2870)
+- Fix system-property with unknown namespace
+- Xsltproc should return an error code if xinclude fails
+- Fix a dictionary string usage
+- Avoid a heap use after free error
+
 * Tue Jul 13 2010 Daniel Veillard <veillard@redhat.com> 1.1.26-2
 - Fix the release numbering
 - Resolves: rhbz#604553
